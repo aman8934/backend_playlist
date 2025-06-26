@@ -3,9 +3,9 @@
 // const asynchandler = (fn) => { async () => {}} same as given below
 
 // promise method
-const asynchandler = (fn) => {
-    (req,res,next) => {
-        Promise.resolve(fn(req, res, next)).catch((err) => next(err));
+const asynchandler = (fn) => { 
+   return (req,res,next) => {
+       Promise.resolve(fn(req, res, next)).catch((err) => next(err));
     }
 }
 
