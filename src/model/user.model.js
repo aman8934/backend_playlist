@@ -49,7 +49,7 @@ const userSchema =new mongoose.Schema(
 )
     userSchema.pre('save' , async function (next) {  //do encrypt before saving/loading data , next is used bcz its a middleware, async bcz it takes time due to some complex algorithm cryptography,not arrow function bcz this keyward is not validin arrow funcn we cant get access of usersmodel above
         if(!this.isModified('passward')) return next() ;
-        this.passward = bcrypt.hash(this.passward,8)
+        this.passward =await bcrypt.hash(this.passward,8)
         next()
     })
 
@@ -88,4 +88,4 @@ const userSchema =new mongoose.Schema(
         )
     }
 const User = mongoose.model("User", userSchema);
-export default User;
+export  {User}
