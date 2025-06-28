@@ -6,7 +6,7 @@ import multer from 'multer'
 // text files are handled in express folder
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "./public/temp")
+    cb(null, "./src/public/temp")
   },
   filename: function (req, file, cb) {
     // const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)

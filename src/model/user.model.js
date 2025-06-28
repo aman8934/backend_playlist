@@ -48,14 +48,16 @@ const userSchema =new mongoose.Schema(
     },{timestamps: true}
 )
     userSchema.pre('save' , async function (next) {  //do encrypt before saving/loading data , next is used bcz its a middleware, async bcz it takes time due to some complex algorithm cryptography,not arrow function bcz this keyward is not validin arrow funcn we cant get access of usersmodel above
-        if(!this.isModified('passward')) return next() ;
-        this.passward =await bcrypt.hash(this.passward,8)
+        if(!this.isModified('password')) return next() ;
+        this.password =await bcrypt.hash(this.password,8)
+        console.log("password encrypted");
+        
         next()
     })
 
     //  making custom method to check user's entered passward with our stored passward
-    userSchema.methods.isPasswardcorrect= async function (passward) {
-        return await bcrypt.compare(passward,this.passward)
+    userSchema.methods.isPasswordcorrect= async function (password) {
+        return await bcrypt.compare(password,this.password)
     }
     userSchema.methods.isgeneratingAccesToken = 
      function() {
@@ -68,7 +70,7 @@ const userSchema =new mongoose.Schema(
             },
             process.env.ACCESS_TOKEN_SECRET,
             {
-                expiresin : process.env.ACCESS_TOKEN_EXPIRY
+                expiresIn : process.env.ACCESS_TOKEN_EXPIRY
             }
         )
     }
@@ -83,7 +85,7 @@ const userSchema =new mongoose.Schema(
             },
             process.env.REFRESH_TOKEN_SECRET,
             {
-                expiresin : process.env.REFRESH_TOKEN_EXPIRY
+                expiresIn : process.env.REFRESH_TOKEN_EXPIRY
             }
         )
     }
