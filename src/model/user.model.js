@@ -61,6 +61,8 @@ const userSchema =new mongoose.Schema(
     }
     userSchema.methods.isgeneratingAccesToken = 
      function() {
+        
+        
         return jwt.sign(
             {
                 _id : this._id,
@@ -74,8 +76,9 @@ const userSchema =new mongoose.Schema(
             }
         )
     }
-     userSchema.methods.isgeneratingRefreshtoken = 
+     userSchema.methods.isgeneratingRefreshToken = 
      function() {
+        console.log("refresh token");
         return jwt.sign(
             {
                 _id : this._id,
